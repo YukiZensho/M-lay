@@ -72,14 +72,35 @@ const uint32_t PROGMEM unicode_map[] = {
 
 
 enum layer_number {
-  _THORN = 0,
-  _QWERTY,
+  _OBAHI = 0,
+  _THORN,
   _LOWER,
   _RAISE,
   _ADJUST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+/* OBAHI
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   0  |   2  |   4  |   6  |   8  |                    |   1  |   3  |   5  |   7  |   9  |  ◌̄◌̃  |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   Æ  |   Ə  |   N  |   L  |   F  |                    |   R  |   S  |   T  |   W  |   Þ  |  ◌́◌̀  |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |LShift|   O  |   B  |   A  |   H  |   I  |-------.    ,-------|   Y  |   E  |   U  |   M  |   J  |  Ŋ   |
+ * |------+------+------+------+------+------|NUMPAD |    |  QWE  |------+------+------+------+------+------|
+ * |LCTRL |   Q  |   Z  |   D  |   G  |   P  |-------|    |-------|   K  |   C  |   V  |   X  |   Ð  |  Σ   |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+ [_OBAHI] = LAYOUT(
+  KC_ESC,          KC_1,         KC_2,         KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,          XP(MACR,TILD),
+  KC_TAB,          XP(ASLW,ASUP),XP(SHLW,SHUP),KC_N,    KC_L,    KC_F,                         KC_R,    KC_S,    KC_T,    KC_W,     XP(THLW,THUP), XP(ACUT,GRAV),
+  KC_LSFT,         KC_O,         KC_B,         KC_A,    KC_H,    KC_I,                         KC_Y,    KC_E,    KC_U,    KC_M,     KC_J,          XP(NGLW,NGUP),
+  KC_LCTRL,        KC_Q,         KC_Z,         KC_D,    KC_G,    KC_P, KC_LOCK,  TG(_THORN),   KC_K,    KC_C,    KC_V,    KC_X,     XP(DHLW,DHUP), XP(SHLW,SHUP),
+                                 KC_LALT,      KC_LGUI, MO(_LOWER), KC_SPC, KC_ENT, MO(_RAISE),   KC_BSPC, KC_DEL
+),
 /* THORN
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  ◌̄◌̃  |
@@ -98,31 +119,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,          KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,         KC_9,         KC_0,          XP(MACR,TILD),
   KC_TAB,          KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,         KC_O,         KC_P,          XP(ACUT,GRAV),
   KC_LSFT,         KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,         KC_L,         XP(DHLW,DHUP), XP(NGLW,NGUP),
-  KC_LCTRL,        KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LOCK, TG(_QWERTY),   KC_N,    KC_M,    XP(THLW,THUP),XP(SCLW,SCUP),XP(ASLW,ASUP), XP(SHLW,SHUP),
+  KC_LCTRL,        KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LOCK,     _______,   KC_N,    KC_M,    XP(THLW,THUP),XP(SCLW,SCUP),XP(ASLW,ASUP), XP(SHLW,SHUP),
                         KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC, KC_ENT, MO(_RAISE),   KC_BSPC, KC_DEL
-),
-
-/* QWERTY
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  -   |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
- * |------+------+------+------+------+------| LOCK  |    |  THO  |------+------+------+------+------+------|
- * |LCTRL |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
-      
- [_QWERTY] = LAYOUT(
-  KC_ESC,          KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                                   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
-  KC_TAB,          KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
-  LSFT_T(KC_ESC),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                                   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LCTRL,        KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,  KC_LOCK,     _______,            KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
-                        KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC, KC_ENT,     MO(_RAISE),         KC_BSPC, KC_DEL
 ),
 
 
