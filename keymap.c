@@ -12,10 +12,19 @@ enum unicode_names {
     ACUT, GRAV,
     MACR, TILD,
 
+    TU, PI,
+
     SG, FG,
     WT, RB,
     ZW, FH,
     WM, TR,
+
+    DOTS, DILW,
+    OUUP, OULW,
+    REUP, RELW,
+    LNGS, DBLS,
+    HEUP, HELW,
+
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -37,15 +46,28 @@ const uint32_t PROGMEM unicode_map[] = {
     [MACR] = 0x304,  // ◌̄
     [TILD] = 0x303,  // ◌̃
 
-    [SG] = 0x1F937,// 🤷
-    [FG] = 0x1F3F3,// 🏳
-    [WT] = 0x1F3FB,// 🏻
-    [RB] = 0x1F308,// 🌈
-    [ZW]  = 0x200D, // ZWJ
-    [FH] = 0xFE0F, // FLTH
-    [WM] = 0x2640, // ♀
-    [TR] = 0x26A7, // ⚧
+    [TU] = 0x3C4,    // τ
+    [PI] = 0x3C0,    // π
+
+    [SG] = 0x1F937,  // 🤷
+    [FG] = 0x1F3F3,  // 🏳
+    [WT] = 0x1F3FB,  // 🏻
+    [RB] = 0x1F308,  // 🌈
+    [ZW] = 0x200D,   // ZWJ
+    [FH] = 0xFE0F,   // FLTH
+    [WM] = 0x2640,   // ♀
+    [TR] = 0x26A7,   // ⚧
      
+    [DOTS] = 0x307,  //  ̇
+    [DILW] = 0x131,  // ı
+    [OUUP] = 0x222,  // Ȣ
+    [OULW] = 0x223,  // ȣ
+    [REUP] = 0x280,  // ʀ
+    [RELW] = 0x27B,  // ɻ
+    [LNGS] = 0x17F,  // ſ
+    [DBLS] = 0xDF,   // ß
+    [HEUP] = 0x29C,  // ʜ
+    [HELW] = 0xA769, // ꝩ 
 };
 
 
@@ -110,28 +132,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |                    |  F19 |  F20 |  F21 | F22  | F23  | F24  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   <  |   >  |   (  |   )  |   -  |-------.    ,-------|   +  |   <  |   >  |   (  |   )  |   -  |
+ * |      |   <  |   >  |   τ  |   +  |   -  |-------.    ,-------|   +  |   <  |   >  |   (  |   )  |   -  |
  * |------+------+------+------+------+------| LOCK  |    | MOD   |------+------+------+------+------+------|
- * |      |   [  |   ]  |   {  |   }  |   _  |-------|    |-------|   =  |   [  |   ]  |   {  |   }  |   _  |
+ * |      |   [  |   ]  |   {  |   =  |   _  |-------|    |-------|   =  |   [  |   ]  |   {  |   }  |   _  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| RGUI |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 [_LOWER] = LAYOUT(
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,
-  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
-  _______, KC_LABK, KC_RABK, KC_LPRN, KC_RPRN, KC_MINS,                   KC_PLUS, KC_LABK, KC_RABK, KC_LPRN, KC_RPRN, KC_MINS,
-  _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_UNDS, KC_LOCK,  UC_MOD, KC_EQL,  KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_UNDS,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,                     KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,
+  KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,                    KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,
+  _______, KC_LABK, KC_RABK, XP(TU,PI),KC_PLUS, KC_MINS,                   KC_PLUS, KC_LABK, KC_RABK, KC_LPRN, KC_RPRN, KC_MINS,
+  _______, KC_LBRC, KC_RBRC, KC_LCBR,  KC_EQL,  KC_UNDS, KC_LOCK,  UC_MOD, KC_EQL,  KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_UNDS,
+                             _______,  _______, _______, _______, _______,  _______, _______, _______
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |   ~  | SHRG | WHIT | ZWTH | WHMN |   `  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   \  | Home | PgDw | PgUp | END  |   '  |
+ * |   `  |   1  |   ȣ  |      |   ɻ  |   5  |                    |   \  | Home | PgDw | PgUp | END  |   '  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|   |  | Left | Down |  Up  |Right |   "  |
+ * |      |   İ  |   ſ  |      |   ꝩ  |  F6  |-------.    ,-------|   |  | Left | Down |  Up  |Right |   "  |
  * |------+------+------+------+------+------| LOCK  |    |    ]  |------+------+------+------+------+------|
  * |      |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   /  |   ;  |   ,  |   .  |   :  |   ?  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -141,11 +163,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                      KC_TILD, XP(SG,FG),XP(WT,RB),XP(ZW,FH),XP(WM,TR),KC_GRV ,
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_BSLS, KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_QUOT,
-  _______, KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       KC_PIPE, KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_DQUO,
-  _______,  KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   KC_LOCK, _______,  KC_SLSH, KC_SCLN,  KC_COMM,  KC_DOT ,  KC_COLN,  KC_QUES,
-                             _______, _______, _______,  _______, _______,   _______, _______,  _______
+  _______, _______,      _______,      _______, _______, _______,                      KC_TILD, XP(SG,FG),XP(WT,RB),XP(ZW,FH),XP(WM,TR),KC_GRV ,
+  KC_GRV,  KC_1,         XP(OULW,OUUP),_______, XP(RELW,REUP),KC_5,                         KC_BSLS, KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_QUOT,
+  _______, XP(DILW,DOTS),XP(LNGS,DBLS),_______, XP(HELW,HEUP),KC_F6,                       KC_PIPE, KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_DQUO,
+  _______,  KC_F8,       KC_F9,        KC_F10,  KC_F11,       KC_F12,   KC_LOCK, _______,  KC_SLSH, KC_SCLN,  KC_COMM,  KC_DOT ,  KC_COLN,  KC_QUES,
+                             _______,  _______, _______,     _______,  _______, _______, _______,  _______
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -172,6 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_A, KC_B),                 ENCODER_CCW_CW(KC_C, KC_D)  },
     [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
     [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
